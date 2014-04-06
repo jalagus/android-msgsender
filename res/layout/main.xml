@@ -23,6 +23,6 @@
               android:layout_below="@+id/edit_name"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-            />
+              android:textSize="24sp"/>
 </RelativeLayout>
 

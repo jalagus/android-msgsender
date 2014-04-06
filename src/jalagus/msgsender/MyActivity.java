@@ -2,12 +2,14 @@ package jalagus.msgsender;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,10 +19,15 @@ import java.net.Socket;
 
 public class MyActivity extends Activity {
 
+    public static final String EXTRA_MESSAGE_IP = "jalagus.msgsender.MyActivity.RETIP";
+    public static final String EXTRA_MESSAGE_PORT = "jalagus.msgsender.MyActivity.RETPORT";
+
+    public static final int SETTINGS_ACTIVITY_ID = 1;
+
     private TextView contentView;
 
-    private String hostIp = "88.192.46.88";
-    private int hostPort = 8080;
+    public String hostIp = "88.192.46.88";
+    public int hostPort = 8080;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,10 +37,27 @@ public class MyActivity extends Activity {
         contentView = (TextView) findViewById(R.id.content_view);
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(this, Settings.class);
+
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                intent.putExtra(EXTRA_MESSAGE_IP, hostIp);
+                intent.putExtra(EXTRA_MESSAGE_PORT, hostPort + "");
+
+                startActivityForResult(intent, SETTINGS_ACTIVITY_ID);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void sendMessage(View view) {
@@ -78,6 +102,20 @@ public class MyActivity extends Activity {
             out.println(message);
             socket.close();
 
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case (SETTINGS_ACTIVITY_ID) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    hostIp = data.getStringExtra(EXTRA_MESSAGE_IP);
+                    hostPort = Integer.parseInt(data.getStringExtra(EXTRA_MESSAGE_PORT));
+                }
+                break;
+            }
         }
     }
 }

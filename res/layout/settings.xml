@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+            android:text="@string/settings_ip"
+            android:textSize="24sp"/>
+
+    <EditText android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+            android:hint="@string/settings_ip"
+            android:id="@+id/setting_ip"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/settings_port"
+              android:textSize="24sp"/>
+
+    <EditText android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:hint="@string/settings_port"
+            android:id="@+id/setting_port"/>
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_save"
+            android:onClick="saveSettings"/>
+</LinearLayout>
