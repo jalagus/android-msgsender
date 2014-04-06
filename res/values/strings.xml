@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MsgSender</string>
+    <string name="edit_text_name">Viesti</string>
+    <string name="send_button">Lähetä</string>
+    <string name="menu_settings">Settings</string>
+</resources>
